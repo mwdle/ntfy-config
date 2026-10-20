@@ -4,6 +4,7 @@ ContainerName=ntfy
 
 Network=ntfy.network
 
+# generate NTFY_AUTH_USERS bcrypt_hash by running `htpasswd -n -B -C 14 <username>`
 Secret=ntfy_auth_users,type=env,target=NTFY_AUTH_USERS
 
 Environment=NTFY_ATTACHMENT_CACHE_DIR=/var/cache/ntfy/attachments
