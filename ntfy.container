@@ -1,0 +1,64 @@
+[Container]
+Image=docker.io/binwiederhier/ntfy:v2.29.0@sha256:4c599cf0818965782f93f652bd843e92714992e84d6b88ad17713dc0951cda1f
+ContainerName=ntfy
+
+Network=ntfy.network
+
+Secret=ntfy_auth_users,type=env,target=NTFY_AUTH_USERS
+
+Environment=NTFY_ATTACHMENT_CACHE_DIR=/var/cache/ntfy/attachments
+Environment=NTFY_ATTACHMENT_EXPIRY_DURATION=30d
+Environment=NTFY_ATTACHMENT_TOTAL_SIZE_LIMIT=5G
+Environment=NTFY_AUTH_FILE=/var/lib/ntfy/auth.db
+Environment=NTFY_AUTH_DEFAULT_ACCESS=deny-all
+Environment=NTFY_AUTH_ACCESS=pixel:hass:read-only,hass:hass:write-only
+Environment=NTFY_CACHE_DURATION=30d
+Environment=NTFY_CACHE_FILE=/var/cache/ntfy/cache.db
+Environment=NTFY_BASE_URL=https://ntfy.mwdle.com
+Environment=NTFY_BEHIND_PROXY=true
+Environment=NTFY_ENABLE_LOGIN=true
+Environment=NTFY_LISTEN_HTTP=:8080
+Environment=NTFY_REQUIRE_LOGIN=true
+Environment=NTFY_VISITOR_ATTACHMENT_TOTAL_SIZE_LIMIT=3G
+Environment=NTFY_VISITOR_ATTACHMENT_DAILY_BANDWIDTH_LIMIT=1G
+Environment=NTFY_VISITOR_REQUEST_LIMIT_EXEMPT_HOSTS=10.89.0.0/16
+Environment=TZ=America/Denver
+
+Volume=%h/containers/ntfy/cache:/var/cache/ntfy:U,Z
+Volume=%h/containers/ntfy/data:/var/lib/ntfy:U,Z
+
+ReadOnly=true
+ReadOnlyTmpfs=false
+Tmpfs=/tmp:noexec,nosuid
+
+User=1000
+Group=1000
+UserNS=auto
+NoNewPrivileges=true
+DropCapability=all
+
+Exec=serve
+# Needed if healthcheck is used to prevent zombie processes
+RunInit=true
+
+HealthStartupCmd=wget -q --tries=1 http://localhost:8080/v1/health -O - | grep -Eo '"healthy"\s*:\s*true' || exit 1
+HealthStartupInterval=5s
+HealthStartupTimeout=5s
+HealthCmd=wget -q --tries=1 http://localhost:8080/v1/health -O - | grep -Eo '"healthy"\s*:\s*true' || exit 1
+HealthInterval=60s
+HealthTimeout=10s
+HealthOnFailure=kill
+Notify=healthy
+
+Memory=128M
+PidsLimit=32
+
+[Service]
+CPUQuota=25%
+Restart=always
+RestartSec=5s
+ExecStartPre=mkdir -p -m 0700 %h/containers/ntfy/cache
+ExecStartPre=mkdir -p -m 0700 %h/containers/ntfy/data
+
+[Install]
+WantedBy=default.target
