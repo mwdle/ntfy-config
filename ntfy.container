@@ -7,6 +7,8 @@ Network=ntfy.network
 # generate NTFY_AUTH_USERS bcrypt_hash by running `htpasswd -n -B -C 14 <username>`
 Secret=ntfy_auth_users,type=env,target=NTFY_AUTH_USERS
 
+Timezone=local
+
 Environment=NTFY_ATTACHMENT_CACHE_DIR=/var/cache/ntfy/attachments
 Environment=NTFY_ATTACHMENT_EXPIRY_DURATION=30d
 Environment=NTFY_ATTACHMENT_TOTAL_SIZE_LIMIT=5G
@@ -23,7 +25,6 @@ Environment=NTFY_REQUIRE_LOGIN=true
 Environment=NTFY_VISITOR_ATTACHMENT_TOTAL_SIZE_LIMIT=3G
 Environment=NTFY_VISITOR_ATTACHMENT_DAILY_BANDWIDTH_LIMIT=1G
 Environment=NTFY_VISITOR_REQUEST_LIMIT_EXEMPT_HOSTS=10.89.0.0/16
-Environment=TZ=America/Denver
 
 Volume=%h/containers/ntfy/cache:/var/cache/ntfy:U,Z
 Volume=%h/containers/ntfy/data:/var/lib/ntfy:U,Z
