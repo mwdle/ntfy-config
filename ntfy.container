@@ -15,10 +15,10 @@ Environment=NTFY_ATTACHMENT_TOTAL_SIZE_LIMIT=5G
 Environment=NTFY_AUTH_FILE=/var/lib/ntfy/auth.db
 Environment=NTFY_AUTH_DEFAULT_ACCESS=deny-all
 Environment=NTFY_AUTH_ACCESS=pixel:hass:read-only,hass:hass:write-only
-Environment=NTFY_CACHE_DURATION=30d
-Environment=NTFY_CACHE_FILE=/var/cache/ntfy/cache.db
 Environment=NTFY_BASE_URL=https://ntfy.mwdle.com
 Environment=NTFY_BEHIND_PROXY=true
+Environment=NTFY_CACHE_DURATION=30d
+Environment=NTFY_CACHE_FILE=/var/cache/ntfy/cache.db
 Environment=NTFY_ENABLE_LOGIN=true
 Environment=NTFY_LISTEN_HTTP=:8080
 Environment=NTFY_REQUIRE_LOGIN=true
