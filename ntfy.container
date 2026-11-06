@@ -1,5 +1,5 @@
 [Container]
-Image=docker.io/binwiederhier/ntfy:v2.35.0@sha256:6f0c9abab7b99a978d816611cc90dabb4849b81f60c53114e91cd07931085dc0
+Image=docker.io/binwiederhier/ntfy:v2.37.2@sha256:1875ddcf815c8a3c981d6d78c67a93452d0abba79b1ab9520b1f5f5238902bd7
 ContainerName=ntfy
 
 Network=ntfy.network
