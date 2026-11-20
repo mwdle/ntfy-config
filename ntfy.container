@@ -43,10 +43,9 @@ Exec=serve
 # Needed if healthcheck is used to prevent zombie processes
 RunInit=true
 
-HealthStartupCmd=wget -q --tries=1 http://localhost:8080/v1/health -O - | grep -Eo '"healthy"\s*:\s*true' || exit 1
+HealthCmd=wget -q --tries=1 http://localhost:8080/v1/health -O - | grep -Eo '"healthy"\s*:\s*true' || exit 1
 HealthStartupInterval=5s
 HealthStartupTimeout=5s
-HealthCmd=wget -q --tries=1 http://localhost:8080/v1/health -O - | grep -Eo '"healthy"\s*:\s*true' || exit 1
 HealthInterval=60s
 HealthTimeout=10s
 HealthOnFailure=kill
